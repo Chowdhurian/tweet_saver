@@ -8,6 +8,9 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/contrib/all' # Requires cookies, among other things
 
+# extra gems
+require 'twitter'
+
 require 'pry'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
@@ -22,6 +25,12 @@ configure do
   set :session_secret, ENV['SESSION_KEY'] || 'lighthouselabssecret'
 
   set :views, File.join(Sinatra::Application.root, "app", "views")
+end
+
+# for twitter
+@client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = "CQUAFvzdmiWxyAIQEjOHXnlyx"
+  config.consumer_secret     = "UpxvesyUzGhe7UNaPDSgBC2wUH1KF1TNMiS0u7cIEe6Zkgrl9T"
 end
 
 # Set up the database and models
